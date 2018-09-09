@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+
+<html lang="en-us">
+
+<head>
+
+  <meta charset="UTF-8">
+
+  <title>Train Activity</title>
+
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+  <link rel="stylesheet" href="./style.css">
+  <script src="https://www.gstatic.com/firebasejs/5.4.2/firebase.js"></script>
+
+  <!-- Added Moment JS -->
+  <script src="https://cdn.jsdelivr.net/momentjs/2.12.0/moment.min.js"></script>
+
+</head>
+
+<body>
+
+    <div class="container">
+        <div class="jumbotron jumbotron-fluid">
+            <div class="container">
+              <h1 class="display-4">Train Activity</h1>
+              <p class="lead">Choo Choo</p>
+            </div>
+          </div>
+          <table class="table">
+                <h5>Current Train Schedule</h5>
+                <thead>
+                  <tr>
+                    <th scope="col">Train Name</th>
+                    <th scope="col">Destination</th>
+                    <th scope="col">Frequency (min)</th>
+                    <th scope="col">Next Arrival</th>
+                    <th scope="col">Minutes Away)</th>
+                  </tr>
+                </thead>
+                <tbody id="tbody">
+                </tbody>
+              </table>
+
+              <br>
+          <form>
+           
+            <hr>
+            
+            <div class="form-group">
+              <label for="inputName">Train Name</label>
+              <input type="text" class="form-control" id="trainName" placeholder="">
+            </div>
+            
+            <div class="form-group">
+              <label for="inputRole">Destination</label>
+              <input type="text" class="form-control" id="destination" placeholder="">
+            </div>
+            
+            <div class="form-group">
+                <label for="inputRole">First Train Time (HH:mm - military time)</label>
+                <input type="text" class="form-control" id="time" placeholder="">
+              </div>
+
+            <div class="form-group">
+              <label for="inputRate">Frequency (min)</label>
+              <input type="text" class="form-control" id="frequency" placeholder="">
+            </div>
+
+            <button type="submit" id="submit" class="btn btn-primary">Submit</button>
+          </form>
+    
+    </div>
+
+
+
+
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.js"></script>
+<script src="./assets/javascript/app.js"></script>
+
+ 
+
+</body>
+
+</html>
