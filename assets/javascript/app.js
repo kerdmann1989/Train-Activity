@@ -28,6 +28,7 @@ $("#submit").on("click", function(event) {
     initialTrain = $("#time").val().trim();
     frequency = $("#frequency").val().trim();
 
+
     database.ref().push({
         trainName: trainName,
         destination: destination,
@@ -39,9 +40,7 @@ $("#submit").on("click", function(event) {
 
 
 database.ref().orderByChild("dateAdded").limitToLast(1).on("child_added", function(snapshot) {
-//   database.ref().on("child_added", function(snapshot) {
 
-    // storing the snapshot.val() in a variable for convenience
     var info = snapshot.val();
 
     // Console.logging the last user's data
@@ -50,32 +49,24 @@ database.ref().orderByChild("dateAdded").limitToLast(1).on("child_added", functi
     console.log(info.initialTrain);
     console.log(info.frequency);
 
-//SHOULD I BE CONVERTING TO UNIX?
-//IF TRAIN TIME ENTERED IS LATER THAN CURRENT TIME, HOW TO JUST DISPLAY TIME ENTERED?
-
-
-    // Current Time
-    var currentTime = moment();
-    // console.log("CURRENT TIME: " + moment(currentTime).format("hh:mm"));
     var nextTrain;
     var minutesAway;
-    // First Time (pushed back 1 year to make sure it comes before current time)
-    var firstTimeConverted = moment(initialTrain, "HH:mm")
-    // console.log(firstTimeConverted);
+    var totalMinAway;
 
-   
+    var firstTimeConverted = moment(initialTrain, "HH:mm")
+
     // Difference between the times
     var diffTime = moment().diff(moment(firstTimeConverted), "minutes");
     console.log("DIFFERENCE IN TIME: " + diffTime);
 
-    if( diffTime < 0) {
-         nextTrain = moment(initialTrain, "HH:mm").format("hh:mm A");
-         minutesAway = moment().subtract(moment(initialTrain), "minutes");
-         console.log(minutesAway); 
+    if(diffTime < 0) {
+        nextTrain = moment(initialTrain, "HH:mm").format("hh:mm A");
+        minutesAway = diffTime * (-1)
+        console.log(minutesAway); 
 
     } else {
 
-            // Time apart (remainder)
+        // Time apart (remainder)
         var tRemainder = diffTime % frequency;
         console.log("Remaining time:" + tRemainder);
 
@@ -87,13 +78,10 @@ database.ref().orderByChild("dateAdded").limitToLast(1).on("child_added", functi
         // Next Train
          nextTrain = moment().add(minutesAway, "minutes").format("hh:mm A")
         console.log("ARRIVAL TIME: " + nextTrain);
-
-
     }
 
-    
-
     var tableRow = $("<tr>");
+
     $("#tbody").append(tableRow);
 
     var trainNameRecord = $("<td>").text(info.trainName);
