@@ -23,14 +23,17 @@
 <body>
 
     <div class="container">
-        
-                <h1 class="display-4 text-center">Train Schedule</h1>
-            
-        
+
+        <div class="hero-image img-fluid">
+            <div class="hero-text">
+                <h1 class="display-3">Train Schedule</h1>
+            </div>
+            </div>
+            <br>
 
         <div class="container">
-            <h4 class = "text-center">Current Train Schedule</h4>
-            <br>
+            <h4 class="text-center">Current Train Schedule</h4>
+
             <div class="row">
 
                 <div class="col card text-white bg-primary mb-3 mr-10 text-center">
@@ -79,13 +82,13 @@
 
         <table class="table">
             <h4 class="text-center">Previous Trains</h4>
-            <br>
-                    <th scope="col" class="text-center table-primary" style="width: 20%">Train Name</th>
-                    <th scope="col" class="text-center table-warning" style="width: 20%">Destination</th>
-                    <th scope="col" class="text-center table-info" style="width: 20%">Frequency (Min)</th>
-                    <th scope="col" class="text-center table-success" style="width: 20%">Next Arrival</th>
-                    <th scope="col" class="text-center table-danger" style="width: 20%">Min. Away</th>
-                
+
+            <th scope="col" class="text-center table-primary" style="width: 20%">Train Name</th>
+            <th scope="col" class="text-center table-warning" style="width: 20%">Destination</th>
+            <th scope="col" class="text-center table-info" style="width: 20%">Frequency (Min)</th>
+            <th scope="col" class="text-center table-success" style="width: 20%">Next Arrival</th>
+            <th scope="col" class="text-center table-danger" style="width: 20%">Min. Away</th>
+
             <tbody id="tbody" scope="col" class="text-center" style="width: 20%">
             </tbody>
         </table>
@@ -94,29 +97,37 @@
         <form>
 
             <hr>
-        <div class="row">
-            <div class="form-group col-lg-6">
-              <label for="inputName"><h5 class="inputLabel">Train Name</h5></label>
-              <input type="text" class="form-control" id="trainName" placeholder="">
+            <div class="row">
+                <div class="form-group col-lg-6">
+                    <label for="inputName">
+                        <h5 class="inputLabel">Train Name</h5>
+                    </label>
+                    <input type="text" class="form-control" id="trainName" placeholder="">
+                </div>
+
+                <div class="form-group col-lg-6">
+                    <label for="inputRole">
+                        <h5 class="inputLabel">Destination</h5>
+                    </label>
+                    <input type="text" class="form-control" id="destination" placeholder="">
+                </div>
             </div>
 
-            <div class="form-group col-lg-6">
-              <label for="inputRole"><h5 class="inputLabel">Destination</h5></label>
-              <input type="text" class="form-control" id="destination" placeholder="">
-            </div>
-        </div>
+            <div class="row">
+                <div class="form-group col-lg-6">
+                    <label for="inputRole">
+                        <h5 class="inputLabel">First Train Time (hh:mm - military time)</h5>
+                    </label>
+                    <input type="text" class="form-control" id="time" placeholder="">
+                </div>
 
-        <div class="row">
-            <div class="form-group col-lg-6">
-                <label for="inputRole"><h5 class="inputLabel">First Train Time (hh:mm - military time)</h5></label>
-                <input type="text" class="form-control" id="time" placeholder="">
+                <div class="form-group col-lg-6">
+                    <label for="inputRate">
+                        <h5 class="inputLabel">Frequency (min)</h5>
+                    </label>
+                    <input type="text" class="form-control" id="frequency" placeholder="">
+                </div>
             </div>
-
-            <div class="form-group col-lg-6">
-                <label for="inputRate"><h5 class="inputLabel">Frequency (min)</h5></label>
-                <input type="text" class="form-control" id="frequency" placeholder="">
-            </div>
-        </div>
 
             <button type="submit" id="submit" class="btn btn-primary">Submit</button>
         </form>

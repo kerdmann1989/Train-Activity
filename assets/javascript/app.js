@@ -1,4 +1,6 @@
 
+$(document ).ready(function() {
+    
 var config = {
     apiKey: "AIzaSyDFXo1lW3vz1ACG6IXGRr2ZAZr0fhrxNro",
     authDomain: "what-the-hell-is-firebase.firebaseapp.com",
@@ -22,6 +24,7 @@ var minutesAway = "";
 
 $("#submit").on("click", function(event) {
     event.preventDefault();
+    $('body').css('background-color', `${colorSurprise()}`);
 
     trainName = $("#trainName").val().trim();
     destination = $("#destination").val().trim();
@@ -34,12 +37,22 @@ $("#submit").on("click", function(event) {
     var diffTime = moment().diff(moment(firstTimeConverted), "minutes");
     console.log("DIFFERENCE IN TIME: " + diffTime);
 
-    //  if(diffTime < 0) {
-    //    nextTrain = moment(initialTrain, "HH:mm").format("hh:mm A");
-    //    minutesAway = diffTime * (-1)
-    //    console.log(minutesAway); 
+    if (diffTime < 0) {
+      nextTrain = moment(initialTrain, "HH:mm").format("hh:mm A");
+        minutesAway = diffTime * (-1)
+          console.log(minutesAway); 
+          database.ref().push({
+            trainName: trainName,
+            destination: destination,
+            initialTrain: initialTrain,
+            frequency: frequency,
+            nextTrain: nextTrain,
+            minutesAway: minutesAway,
+            dateAdded: firebase.database.ServerValue.TIMESTAMP
+     });
+        
 
-    // } else {
+    } else {
 
         // Time apart (remainder)
         var tRemainder = diffTime % frequency;
@@ -62,11 +75,17 @@ $("#submit").on("click", function(event) {
         minutesAway: minutesAway,
         dateAdded: firebase.database.ServerValue.TIMESTAMP
     });
-    
-// }
+ }
 });
 
-database.ref().orderByChild("dateAdded").limitToLast(5).on("child_added", function(snapshot) {
+function colorSurprise(){
+    // an inner helper function to select a random color
+    function randomizer(){
+      return Math.floor(Math.random() * 200); // I limited the color range to avoid colors close to white
+    }
+    return `rgb(${randomizer()}, ${randomizer()}, ${randomizer()})`
+  }
+  database.ref().orderByChild("dateAdded").limitToLast(3).on("child_added", function(snapshot) {
 
     var info = snapshot.val();
 
@@ -77,36 +96,6 @@ database.ref().orderByChild("dateAdded").limitToLast(5).on("child_added", functi
     console.log(info.frequency);
     console.log(info.nextTrain);
     console.log(info.minutesAway)
-
-    // var nextTrain;
-    // var minutesAway;
-
-    // var firstTimeConverted = moment(initialTrain, "HH:mm")
-
-    // // Difference between the times
-    // var diffTime = moment().diff(moment(firstTimeConverted), "minutes");
-    // console.log("DIFFERENCE IN TIME: " + diffTime);
-
-    // if(diffTime < 0) {
-    //     nextTrain = moment(initialTrain, "HH:mm").format("hh:mm A");
-    //     minutesAway = diffTime * (-1)
-    //     console.log(minutesAway); 
-
-    // } else {
-
-    //     // Time apart (remainder)
-    //     var tRemainder = diffTime % frequency;
-    //     console.log("Remaining time:" + tRemainder);
-
-    //     // Minute Until Train
-    //      minutesAway = frequency - tRemainder;
-    //     console.log("MINUTES TILL TRAIN: " + minutesAway);
-
-
-    //     // Next Train
-    //      nextTrain = moment().add(minutesAway, "minutes").format("hh:mm A")
-    //     console.log("ARRIVAL TIME: " + nextTrain);
-    // }
 
     var tableRow = $("<tr>");
 
@@ -124,7 +113,6 @@ database.ref().orderByChild("dateAdded").limitToLast(5).on("child_added", functi
     $("#nextResult").text(info.nextTrain);
     $("#minutesResult").text(info.minutesAway);
 
-        
     tableRow.append(trainNameRecord);
     tableRow.append(destinationRecord);
     tableRow.append(frequencyRecord);
@@ -135,4 +123,7 @@ database.ref().orderByChild("dateAdded").limitToLast(5).on("child_added", functi
     console.log("Errors handled: " + errorObject.code);
     });
 
+   
+    
 
+});

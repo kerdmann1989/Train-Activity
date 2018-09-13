@@ -7,9 +7,28 @@ h5 {
 }
 .jumbotron {
     color: red;
-
 }
 
 .inputLabel {
     color: black;
+}
+
+
+.hero-image {
+    background-image: url("../images/SteamTrain2.jpg");
+    background-size: cover;
+    height: 400px;
+    position: relative;
+}
+
+.hero-text {
+    color: white;
+    margin-top: 100px;
+    position: absolute;
+    margin-left: 50px;
+    font-size: 100px;
+}
+
+h1 {
+    font-size: 100px;
 }
